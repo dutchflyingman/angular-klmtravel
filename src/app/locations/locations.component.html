@@ -1,0 +1,96 @@
+<mat-card-title>
+  <button (click)="getLocations()" mat-button>All Locations !</button>
+</mat-card-title>
+
+
+<md-card>
+  <md-input-container>
+    <mat-label>Select Location Type(Country/City/Airport)</mat-label>
+    <span>&nbsp;&nbsp;</span>
+    <select  [(ngModel)]="type">
+      <option value="country">country</option>
+      <option value="city">city</option>
+      <option value="airport">airport</option>
+    </select>
+    <span>&nbsp;&nbsp;</span>
+    <mat-label> Enter the ISO Code</mat-label> <span>&nbsp;&nbsp;</span>
+    <input class="search" mdInput [(ngModel)]="code"
+           name="search" placeholder="Search">
+  </md-input-container>
+  <span>&nbsp;&nbsp;</span>
+  <button (click)="search()"
+          md-raised-button class="searchButton" type="button" [disabled]="!(code && type)">Find Location</button>
+</md-card>
+<br>
+<br>
+<div><md-card>
+  <md-input-container>
+    <mat-label> Enter the ISO Code</mat-label> <span>&nbsp;&nbsp;</span>
+    <input class="search" mdInput [(ngModel)]="airportCountryCode"
+           name="search" placeholder="ISO Code Of Country">
+  </md-input-container>
+  <span>&nbsp;&nbsp;</span>
+  <button (click)="getAirports()"
+          md-raised-button class="searchButton" type="button" [disabled]="!(airportCountryCode)">Find Airports</button>
+</md-card>&nbsp;&nbsp;</div>
+<br>
+<br>
+<p *ngIf="message">{{message}}
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Code Column -->
+  <ng-container matColumnDef="code">
+    <th mat-header-cell  *matHeaderCellDef> Code</th>
+    <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+  <!-- Description Column -->
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef> Description </th>
+    <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+  </ng-container>
+
+  <!-- Type Column -->
+  <ng-container matColumnDef="type">
+    <th mat-header-cell *matHeaderCellDef> Type </th>
+    <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+  </ng-container>
+
+  <!-- Latitude Column -->
+  <ng-container matColumnDef="latitude">
+    <th mat-header-cell *matHeaderCellDef> Latitude </th>
+    <td mat-cell *matCellDef="let element"> {{element.latitude}} </td>
+  </ng-container>
+
+  <!-- Longitude Column -->
+  <ng-container matColumnDef="longitude">
+    <th mat-header-cell *matHeaderCellDef> Longitude </th>
+    <td mat-cell *matCellDef="let element"> {{element.longitude}} </td>
+  </ng-container>
+
+  <!-- ParentCode Column -->
+  <ng-container matColumnDef="parentCode">
+    <th mat-header-cell *matHeaderCellDef> ParentCode </th>
+    <td mat-cell *matCellDef="let element"> {{element.parentLocationCode}} </td>
+  </ng-container>
+
+  <!-- ParentType Column -->
+  <ng-container matColumnDef="parentType">
+    <th mat-header-cell *matHeaderCellDef> ParentType </th>
+    <td mat-cell *matCellDef="let element"> {{element.parentLocationType}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+
